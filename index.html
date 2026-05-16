@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Квартиры в аренду — Поиск</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <h1>Поиск квартир в аренду</h1>
+  
+  <div class="filters">
+    <input type="text" id="search" placeholder="Поиск по адресу или району..." onkeyup="filterTable()">
+    
+    <select id="city" onchange="filterTable()">
+      <option value="">Все города</option>
+    </select>
+    
+    <input type="number" id="maxPrice" placeholder="Макс. цена" onkeyup="filterTable()">
+  </div>
+
+  <div id="results" class="cards"></div>
+
+  <script src="script.js"></script>
+</body>
+</html>
