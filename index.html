@@ -2,25 +2,29 @@
 <html lang="ru">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Квартиры в аренду — Поиск</title>
+  <title>Аренда Квартир</title>
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
-  <h1>Поиск квартир в аренду</h1>
-  
-  <div class="filters">
-    <input type="text" id="search" placeholder="Поиск по адресу или району..." onkeyup="filterTable()">
-    
-    <select id="city" onchange="filterTable()">
-      <option value="">Все города</option>
-    </select>
-    
-    <input type="number" id="maxPrice" placeholder="Макс. цена" onkeyup="filterTable()">
+  <header>
+    <h1>Поиск аренды</h1>
+    <div id="auth-section">
+      <button onclick="showLogin()">Войти</button>
+      <button onclick="showRegister()">Регистрация</button>
+    </div>
+  </header>
+
+  <!-- Форма создания объявления (показывать только авторизованным) -->
+  <div id="create-form" style="display:none;">
+    <h2>Разместить объявление</h2>
+    <!-- Поля формы: title, city, price и т.д. -->
+    <button onclick="createListing()">Опубликовать</button>
   </div>
 
+  <div class="filters">...</div>
   <div id="results" class="cards"></div>
 
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
   <script src="script.js"></script>
 </body>
 </html>
