@@ -1,5 +1,5 @@
-const supabaseUrl = 'https://твой-проект.supabase.co';
-const supabaseKey = 'твой_анонимный_ключ'; // из Supabase → Settings → API
+const supabaseUrl = 'https://sxogeqclhzsbrgrnmlmt.supabase.co';
+const supabaseKey = 'sxogeqclhzsbrgrnmlmt'; // из Supabase → Settings → API
 
 const supabase = Supabase.createClient(supabaseUrl, supabaseKey);
 
