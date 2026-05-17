@@ -1,5 +1,5 @@
 const supabaseUrl = 'https://sxogeqclhzsbrgrnmlmt.supabase.co';
-const supabaseKey = 'sxogeqclhzsbrgrnmlmt'; // из Supabase → Settings → API
+const supabaseKey = 'sb_publishable_nujC4snztXINo1_ArC7cBQ_xpst6QNS'; // из Supabase → Settings → API
 
 const supabase = Supabase.createClient(supabaseUrl, supabaseKey);
 
