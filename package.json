@@ -2,11 +2,11 @@
   "name": "rent-app",
   "version": "0.1.0",
   "private": true,
- "scripts": {
-  "dev": "next dev",
-  "build": "next build",
-  "start": "next start"
-},
+  "scripts": {
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start"
+  },
   "dependencies": {
     "@2gis/mapgl": "^1.72.3",
     "@supabase/auth-helpers-nextjs": "^0.15.0",
