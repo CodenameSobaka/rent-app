@@ -4,7 +4,7 @@ import { NextResponse } from 'next/server'
 import type { NextRequest } from 'next/server'
 
 export async function middleware(request: NextRequest) {
-  let response = NextResponse.next({
+  const response = NextResponse.next({
     request,
   })
 
@@ -25,13 +25,10 @@ export async function middleware(request: NextRequest) {
     }
   )
 
-  // Обновляем сессию
   const { data: { session } } = await supabase.auth.getSession()
 
-  // Защищённые маршруты
-  const isProtectedRoute = request.nextUrl.pathname.startsWith('/add')
-
-  if (isProtectedRoute && !session) {
+  // Защищаем только нужные маршруты
+  if (request.nextUrl.pathname.startsWith('/add') && !session) {
     return NextResponse.redirect(new URL('/login', request.url))
   }
 
@@ -39,8 +36,5 @@ export async function middleware(request: NextRequest) {
 }
 
 export const config = {
-  matcher: [
-    '/add/:path*',
-    '/search/:path*',
-  ]
+  matcher: ['/add/:path*', '/profile/:path*']
 }
