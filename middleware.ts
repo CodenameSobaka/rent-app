@@ -27,12 +27,13 @@ export async function middleware(request: NextRequest) {
 
   const { data: { session } } = await supabase.auth.getSession()
 
-  // Защищаем маршруты
-  if (request.nextUrl.pathname.startsWith('/add') && !session) {
-    return NextResponse.redirect(new URL('/login', request.url))
-  }
+  // Защита маршрутов
+  const protectedPaths = ['/add', '/profile']
+  const isProtectedPath = protectedPaths.some(path => 
+    request.nextUrl.pathname.startsWith(path)
+  )
 
-  if (request.nextUrl.pathname.startsWith('/profile') && !session) {
+  if (isProtectedPath && !session) {
     return NextResponse.redirect(new URL('/login', request.url))
   }
 
