@@ -1,3 +1,4 @@
+// components/Header.tsx
 'use client'
 
 import { createClientBrowser } from '@/lib/supabase-client'
@@ -6,14 +7,21 @@ import { useRouter } from 'next/navigation'
 
 export default function Header() {
   const [user, setUser] = useState<any>(null)
+  const [profile, setProfile] = useState<any>(null)
   const router = useRouter()
   const supabase = createClientBrowser()
 
   useEffect(() => {
     supabase.auth.getSession().then(({ data }) => {
       setUser(data.session?.user || null)
+      if (data.session?.user) loadProfile(data.session.user.id)
     })
   }, [])
+
+  const loadProfile = async (userId: string) => {
+    const { data } = await supabase.from('profiles').select('*').eq('id', userId).single()
+    setProfile(data)
+  }
 
   const handleLogout = async () => {
     await supabase.auth.signOut()
@@ -22,35 +30,27 @@ export default function Header() {
 
   return (
     <header className="bg-white border-b sticky top-0 z-50 shadow-sm">
-      <div className="max-w-7xl mx-auto px-6 py-5 flex justify-between items-center">
+      <div className="max-w-7xl mx-auto px-6 py-4 flex justify-between items-center">
         <div className="flex items-center gap-3">
-          <div className="w-9 h-9 bg-orange-500 rounded-2xl flex items-center justify-center">
-            <span className="text-white text-2xl">🏠</span>
-          </div>
-          <h1 className="text-2xl font-bold text-gray-900">АрендаКвартир</h1>
+          <span className="text-3xl">🏠</span>
+          <h1 className="text-2xl font-bold">Аренда Квартир</h1>
         </div>
 
         <div className="flex items-center gap-6">
           {user ? (
             <>
-              <a href="/profile" className="text-gray-700 hover:text-orange-600 font-medium transition">
-                Профиль
+              <a href="/profile" className="flex items-center gap-2 hover:text-blue-600 transition">
+                👤 {profile?.first_name || user.email?.split('@')[0]}
               </a>
-              <a 
-                href="/add" 
-                className="bg-orange-500 hover:bg-orange-600 text-white px-6 py-3 rounded-2xl font-medium transition"
-              >
-                + Добавить объявление
+              <a href="/add" className="bg-blue-600 text-white px-6 py-3 rounded-2xl font-medium hover:bg-blue-700">
+                + Добавить
               </a>
-              <button 
-                onClick={handleLogout}
-                className="text-gray-600 hover:text-red-600 transition"
-              >
+              <button onClick={handleLogout} className="text-red-600 hover:underline">
                 Выйти
               </button>
             </>
           ) : (
-            <a href="/login" className="font-medium text-gray-700 hover:text-orange-600">Войти</a>
+            <a href="/login" className="font-medium">Войти</a>
           )}
         </div>
       </div>
